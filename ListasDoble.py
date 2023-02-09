@@ -1,34 +1,33 @@
 class Nodo:
-    def __init__(self,dato):
-        self.dato =dato
-        self.siguiente = None
+    def __init__(self, dato):
+        self.dato = dato
+        self.sig  = None
     
-class Circular:
+class ListaCircular:
     def __init__(self):
-        self.primeroLista = None
-        self.ultimoDato = None
+        self.primero = None
+        self.ultimo = None
 
     #agrega elemento al inicio 
 
-    def agregarInicio(self,dato):
-        if len(self)==0:
-            self.primeroLista = self.ultimoDato = Nodo(dato)
-            self.ultimoDato.siguiente=self.primeroLista
+    def agregarInicio(self, dato):
+        if len(self) == 0:
+            self.primero = self.ultimo = Nodo(dato)
+            self.ultimo.sig = self.primero
         else:
-            datoAuxiliar= Nodo(dato)
-            datoAuxiliar.siguiente = self.primeroLista
-            self.ultimoDato.siguiente = self.primeroLista
+            aux = Nodo(dato)
+            aux.sig = self.primero
+            self.primero = aux
+            self.ultimo.sig = self.primero
             
-            
-    
     # agrega elemento al final
 
     def agregarFinal(self,dato):
         if len(self) == 0:
             self.primeroLista=self.ultimoDato = Nodo(dato)
-            self.ultimoDato = self.primeroLista
+            self.ultimoDato.siguiente = self.primeroLista
         else:
-            datoAuxiliar= Nodo(dato)
+            datoAuxiliar= self.ultimoDato
             self.ultimoDato = datoAuxiliar.siguiente= Nodo(dato)
             self.ultimoDato.siguiente=self.primeroLista
 
@@ -96,9 +95,50 @@ class Circular:
             elementoAuxiliar = elementoAuxiliar.siguiente
             if elementoAuxiliar.siguiente == self.primeroLista.siguiente:
                 break
-            return elementos
+        return elementos
     
-    
+
+    def __len__(self):
+        auxiliar = self.primeroLista
+        contador = 0
+        while auxiliar:
+            contador += 1
+            if auxiliar.siguiente == self.primeroLista:
+                break
+        return contador
+
+    def __getitem__(self,indice):
+        if indice >= 0 and indice < len(self):
+            datoActual = self.primeroLista
+            for i in range(indice):
+                datoActual = datoActual.siguiente
+            return datoActual.dato
+        else:
+            raise IndexError("indice fuera de rango")
+
+
+
+if __name__ == "__main__":
+    ListaC = Circular()
+    ListaC.agregarInicio(3)
+    ListaC.agregarFinal(2)
+    ListaC.agregarInicio(1)
+    print("Datos guardados  ")
+    print(ListaC)
+
+
+    # ListaC.reemplazarNodo(3,55)
+    # ListaC.reemplazarNodo(2,89)
+    # ListaC.reemplazarNodo(6,7982)
+    # print("Datos modificados :")
+    # print(ListaC)
+
+
+    # ListaC.borarNodo(1)
+    # print("Mostrar show ")
+    # print(ListaC)
+
+
     
 
 
