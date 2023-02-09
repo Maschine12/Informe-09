@@ -22,26 +22,27 @@ class ListaCircular:
             
     # agrega elemento al final
 
-    def agregarFinal(self,dato):
+    def agregarUltimo(self, dato):
         if len(self) == 0:
-            self.primeroLista=self.ultimoDato = Nodo(dato)
-            self.ultimoDato.siguiente = self.primeroLista
+            self.primero = self.ultimo = Nodo(dato)
+            self.ultimo.sig = self.primero
         else:
-            datoAuxiliar= self.ultimoDato
-            self.ultimoDato = datoAuxiliar.siguiente= Nodo(dato)
-            self.ultimoDato.siguiente=self.primeroLista
+            aux = self.ultimo
+            self.ultimo = aux.sig = Nodo(dato)
+            self.ultimo.sig = self.primero
 
     
     # busca el nodo por dato
     def buscarNodo(self, dato):
-        datoAuxiliar = self.primeroLista
+        aux = self.primero
         existe = False
-        while datoAuxiliar:
-            if datoAuxiliar.dato == dato:
+        while aux:
+            if aux.dato == dato:
                 existe = True
                 break
-            datoAuxiliar = datoAuxiliar.siguiente
-            if datoAuxiliar.siguiente == self.primeroLista:
+            
+            aux = aux.sig
+            if aux.sig == self.primero.sig:
                 break
         return existe
 
