@@ -78,57 +78,55 @@ class ListaCircular:
         nDatos = len(lista)
         datoEliminar = lista[nDatos-1]
         self.eliminarNodo(datoEliminar)
-    def __str__(self) -> str:
-        elementoAuxiliar = self.primeroLista
-        elementos = ""
-        while elementoAuxiliar:
-            elementos += str(elementoAuxiliar.dato) + " "
 
-            elementoAuxiliar = elementoAuxiliar.siguiente
-            if elementoAuxiliar.siguiente == self.primeroLista.siguiente:
+    def __str__(self) -> str:
+        aux = self.primero
+        datos = ""
+        while aux:
+            datos += str(aux.dato) + "  "
+            aux = aux.sig
+            if aux.sig == self.primero.sig:
                 break
-        return elementos
+        return datos    
     
 
     def __len__(self):
-        auxiliar = self.primeroLista
-        contador = 0
-        while auxiliar:
-            contador += 1
-            if auxiliar.siguiente == self.primeroLista:
+        aux = self.primero
+        count = 0
+        while aux:
+            count += 1
+            aux = aux.sig
+            if aux.sig == self.primero.sig:
                 break
-        return contador
+        return count
 
-    def __getitem__(self,indice):
-        if indice >= 0 and indice < len(self):
-            datoActual = self.primeroLista
-            for i in range(indice):
-                datoActual = datoActual.siguiente
-            return datoActual.dato
+    def __getitem__(self, index):
+        if index >= 0 and index < len(self):
+            actual = self.primero
+            for i in range(index):
+                actual = actual.sig
+            return actual.dato
         else:
-            raise IndexError("indice fuera de rango")
-
+            raise IndexError ("Indice fuera de rango")
 
 
 if __name__ == "__main__":
-    ListaC = Circular()
-    ListaC.agregarInicio(3)
-    ListaC.agregarFinal(2)
-    ListaC.agregarInicio(1)
-    print("Datos guardados  ")
-    print(ListaC)
+    lc = ListaCircular() #instanciando Clase listaCircular
+    lc.agregarInicio(3) # agrega al inicio [3]x
+    lc.agregarUltimo(2) # agrega al final [3, 2]
+    lc.agregarInicio(1) # agrega al inicio [1, 3, 2]
+    lc.agregarInicio(54)
+    lc.agregarInicio(48)
+    
+    print("Mostrando datos añadidos")
+    print(lc) #imprimiendo datos de la lista circular
 
-
-    # ListaC.reemplazarNodo(3,55)
-    # ListaC.reemplazarNodo(2,89)
-    # ListaC.reemplazarNodo(6,7982)
-    # print("Datos modificados :")
-    # print(ListaC)
-
-
-    # ListaC.borarNodo(1)
-    # print("Mostrar show ")
-    # print(ListaC)
+    print("Eliminando el primer dato")
+    lc.eliminarPrimero(lc)
+    print(lc)
+    print("Eliminar el ultimo dato")
+    lc.eliminarUltimo(lc)
+    print(lc)
 
 
     
