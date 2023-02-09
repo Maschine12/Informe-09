@@ -46,47 +46,38 @@ class ListaCircular:
                 break
         return existe
 
-
-    #Reemplaza el nodo datos cambiaras , dato nuevo
-
-    def reemplazarNodo(self,datoCambiaré,nuevoDato):
-        if self.buscarNodo(datoCambiaré):
-            datoAux = self.primeroLista
-            while datoAux:
-                if datoAux.dato ==nuevoDato:
-                    datoAux.dato = nuevoDato
-                    break
-                datoAux = datoAux.siguiente
-                if datoAux.siguiente == self.primeroLista.siguiente:
-                    break
-        else:
-            raise Exception("El dato para reemplaza no existe en la lista")
-
     #funcion para borar nodo 
 
-    def borarNodo(self,datoBorar):
-        if self.buscarNodo(datoBorar):
-            dato1 = self.primeroLista
-            dato2 = self.primeroLista
-            while dato1:
-                if len(self)==1:
-                    self.primeroLista = None
-                    self.ultimoDato.siguiente = self.primeroLista
+    def eliminarNodo(self, dato):
+        if self.buscarNodo(dato):
+            actual   = self.primero
+            anterior = self.primero
+            while actual:
+                if len(self) == 1:
+                    self.primero = None
+                    self.ultimo.sig = self.primero
                     break
-                if dato1.dato== datoBorar:
-                    if dato1 == self.primeroLista:
-                        self.primeroLista = self.primeroLista.siguiente
-                        self.ultimoDato.siguiente=self.primeroLista
+                if actual.dato == dato:
+                    if actual == self.primero:
+                        self.primero = self.primero.sig
+                        self.ultimo.sig = self.primero
+                        
                     else:
-                        dato2.siguiente = dato1.siguiente
+                        anterior.sig = actual.sig
                     return
-                dato2 = dato1
-                dato1 = dato1.siguiente
-            
+                anterior = actual
+                actual = actual.sig
         else:
-            raise Exception("No se puede borar el nodo")
+            raise Exception ("El Nodo no puede se eliminado por tratarse de un dato inexistente.")
     
-
+    def eliminarPrimero(self,lista):
+        datoEliminar = lista[0]
+        self.eliminarNodo(datoEliminar)
+    
+    def eliminarUltimo(self,lista):
+        nDatos = len(lista)
+        datoEliminar = lista[nDatos-1]
+        self.eliminarNodo(datoEliminar)
     def __str__(self) -> str:
         elementoAuxiliar = self.primeroLista
         elementos = ""
